@@ -1,8 +1,7 @@
-import * as React from "react"
-import { ArchiveX, Command, File, HomeIcon, Inbox, PlusCircle, Send, Trash2 } from "lucide-react"
+import * as React from "react";
+import { Command, HomeIcon, PlusCircle } from "lucide-react";
 
-import { NavUser } from "@/components/nav-user"
-import { Label } from "@/components/ui/label"
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -10,14 +9,11 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
-  SidebarInput,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar"
-import { Switch } from "@/components/ui/switch"
-import { Link } from "react-router-dom"
+} from "@/components/ui/sidebar";
+import { Link } from "react-router-dom";
 
 // This is sample data
 const data = {
@@ -39,23 +35,17 @@ const data = {
       icon: PlusCircle,
       isActive: false,
     },
-   
   ],
- 
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Note: I'm using state to show active item.
   // IRL you should use the url/router.
-  const [activeItem, setActiveItem] = React.useState(data.navMain[0])
+  const [activeItem, setActiveItem] = React.useState(data.navMain[0]);
   // const { setOpen } = useSidebar()
 
   return (
-    <Sidebar
-      collapsible="icon"
-      className=""
-      {...props}
-    >
+    <Sidebar collapsible="icon" className="" {...props}>
       {/* This is the first sidebar */}
       {/* We disable collapsible and adjust width to icon. */}
       {/* This will make the sidebar appear as icons. */}
@@ -92,14 +82,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         hidden: false,
                       }}
                       onClick={() => {
-                        setActiveItem(item)
+                        setActiveItem(item);
                         // setOpen(true)
                       }}
                       isActive={activeItem.title === item.title}
                       className="px-2.5 md:px-2"
                     >
-                      <Link href={item.url} >
-                      <item.icon />
+                      <Link href={item.url}>
+                        <item.icon />
                       </Link>
                       <span>{item.title}</span>
                     </SidebarMenuButton>
@@ -114,5 +104,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarFooter>
       </Sidebar>
     </Sidebar>
-  )
+  );
 }

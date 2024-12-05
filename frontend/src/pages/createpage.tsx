@@ -28,7 +28,9 @@ export const CreatePage = () => {
     });
   };
 
-  const { products, addProduct } = useProductStore();
+  const ps: any = useProductStore();
+  const products = ps?.products;
+  const addProduct = ps?.addProduct;
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4 items-center">
