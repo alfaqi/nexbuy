@@ -47,12 +47,12 @@ export default function CreatePage() {
 
   return (
     <Container maxWidth={"container.sm"}>
-      <VStack spaceY={8}>
+      <VStack gap={8}>
         <Heading as={"h1"} size={"2xl"} textAlign={"center"} mb={8}>
           Create New Product
         </Heading>
         <Box w={"full"} p={6} rounded={"lg"} shadow={"md"}>
-          <VStack spaceY={4}>
+          <VStack gap={4}>
             <Input
               placeholder="Product Name"
               name="name"
