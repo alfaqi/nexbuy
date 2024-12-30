@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const HOST = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
-console.log("aaa:", HOST);
+console.log("HOST:", HOST);
 
 export const useProductStore = create((set) => ({
   products: [],
