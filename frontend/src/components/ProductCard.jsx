@@ -90,19 +90,34 @@ export default function ProductCard({ product }) {
 
 const UpdateModal = ({ product, open, setOpen }) => {
   const [update_product, setUpdate_product] = useState(product);
+  const [isLoading, setIsLoading] = useState(false);
   const { updateProduct } = useProductStore();
-  const handleUpdateProduct = async (id) => {
-    console.log(product);
-    const { success, message } = await updateProduct(id, update_product);
-    const title = success === true ? "Success" : "Error";
-    const type = success === true ? "success" : "error";
 
-    toaster.create({
-      title: title,
-      description: message,
-      type: type,
-    });
-    setOpen(false);
+  const handleUpdateProduct = async (id) => {
+    try {
+      setIsLoading(true);
+      console.log(product);
+      const { success, message } = await updateProduct(id, update_product);
+      const title = success === true ? "Success" : "Error";
+      const type = success === true ? "success" : "error";
+
+      toaster.create({
+        title: title,
+        description: message,
+        type: type,
+      });
+      setOpen(false);
+    } catch (error) {
+      console.log("Error:", error);
+
+      toaster.create({
+        title: "Error",
+        description: error.message,
+        type: "error",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <DialogRoot open={open} onOpenChange={() => setOpen(false)}>
@@ -141,11 +156,18 @@ const UpdateModal = ({ product, open, setOpen }) => {
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
-            <Button onClick={() => setOpen(false)} variant="outline">
+            <Button
+              onClick={() => setOpen(false)}
+              variant="outline"
+              disabled={isLoading}
+            >
               Cancel
             </Button>
           </DialogActionTrigger>
-          <Button onClick={() => handleUpdateProduct(product._id)}>
+          <Button
+            onClick={() => handleUpdateProduct(product._id)}
+            disabled={isLoading}
+          >
             Update
           </Button>
         </DialogFooter>
