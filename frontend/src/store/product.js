@@ -1,3 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+const HOST = process.env.VITE_REACT_APP_BACKEND_BASEURL;
+console.log("VITE_REACT_APP_BACKEND_BASEURL:", VITE_REACT_APP_BACKEND_BASEURL);
+
 import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
@@ -7,7 +13,7 @@ export const useProductStore = create((set) => ({
     if (!newProduct.name || !newProduct.image || !newProduct.price) {
       return { success: false, message: "Please fill in all fields." };
     }
-    const res = await fetch("/api/products", {
+    const res = await fetch(`${HOST}/api/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
@@ -19,12 +25,12 @@ export const useProductStore = create((set) => ({
     } else return { success: false, message: "Error" };
   },
   fetchProducts: async () => {
-    const res = await fetch("/api/products");
+    const res = await fetch(`${HOST}/api/products`);
     const data = await res.json();
     set({ products: data.data });
   },
   deleteProduct: async (id) => {
-    const res = await fetch(`/api/products/${id}`, {
+    const res = await fetch(`${HOST}/api/products/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();
@@ -37,7 +43,7 @@ export const useProductStore = create((set) => ({
     } else return { success: false, message: "Error" };
   },
   updateProduct: async (id, product) => {
-    const res = await fetch(`/api/products/${id}`, {
+    const res = await fetch(`${HOST}/api/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
