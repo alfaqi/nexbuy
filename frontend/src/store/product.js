@@ -1,10 +1,7 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-const HOST = process.env.VITE_REACT_APP_BACKEND_BASEURL;
-console.log("VITE_REACT_APP_BACKEND_BASEURL:", VITE_REACT_APP_BACKEND_BASEURL);
-
 import { create } from "zustand";
+
+const HOST = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
+console.log("aaa:", HOST);
 
 export const useProductStore = create((set) => ({
   products: [],
