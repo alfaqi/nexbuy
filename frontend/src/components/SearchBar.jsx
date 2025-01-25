@@ -1,26 +1,48 @@
 import { useState } from "react";
-import { Input, Button, HStack } from "@chakra-ui/react";
-import { useProductStore } from "../store/product";
+import { Input, IconButton } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { InputGroup } from "../components/ui/input-group";
+import { BiSearch } from "react-icons/bi";
 
 export default function SearchBar() {
-  const { searchProducts } = useProductStore();
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
-  const handleSearch = async () => {
-    await searchProducts(query);
-
-    // setQuery("");
+  const handleSearch = () => {
+    if (query.trim()) {
+      navigate(`/search?query=${encodeURIComponent(query)}`);
+    }
   };
 
   return (
-    <HStack spacing={4}>
+    <InputGroup
+      flex="1"
+      endElement={
+        <>
+          {query && (
+            <IconButton
+              colorPalette="red"
+              background={"transparent"}
+              onClick={handleSearch}
+              rounded={"full"}
+            >
+              <BiSearch />
+            </IconButton>
+          )}
+        </>
+      }
+    >
       <Input
         placeholder="Search products..."
+        variant="flushed"
         value={query}
-        type="search"
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSearch();
+        }}
+        // pr="4.5rem" // Add padding to prevent text from overlapping the icon
+
       />
-      {query && <Button onClick={handleSearch}>Search</Button>}
-    </HStack>
+    </InputGroup>
   );
 }
