@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react";
 import { login, register } from "@/services/authService";
+import { useUserStore } from "@/store/users";
 
 export const useAuth = () => {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Check if the user is already logged in on app load
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log("token:", token);
-
-    if (token) {
-      // If a token exists, assume the user is logged in
-      // You can optionally fetch user data here if needed
-      setUser({}); // Set a placeholder user object
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
   }, []);
 
@@ -25,8 +21,9 @@ export const useAuth = () => {
 
     try {
       const data = await login(email, password);
-
       localStorage.setItem("token", data.token);
+      console.log("data:", data);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
       return true;
     } catch (error) {
@@ -45,6 +42,7 @@ export const useAuth = () => {
     try {
       const data = await register(userData);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
     } catch (error) {
       setError(error.message || "Registration failed. Please try again.");
@@ -56,6 +54,7 @@ export const useAuth = () => {
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
