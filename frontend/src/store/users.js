@@ -17,7 +17,7 @@ export const useUserStore = create((set) => ({
 
   // Create a new user
   createUser: async (newUser) => {
-    if (!newUser.username || !newUser.email || !newUser.password) {
+    if (!newUser.name || !newUser.email || !newUser.password) {
       return { success: false, message: "Please fill in all fields." };
     }
 

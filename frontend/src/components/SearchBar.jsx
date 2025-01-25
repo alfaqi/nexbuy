@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input, IconButton } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { InputGroup } from "../components/ui/input-group";
+import { InputGroup } from "@/components/ui/input-group";
 import { BiSearch } from "react-icons/bi";
 
 export default function SearchBar() {

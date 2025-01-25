@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Container, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import Error from "../components/Error";
-import Loading from "../components/Loading";
-import ProductCard from "../components/ProductCard";
+import Error from "@/components/Error";
+import Loading from "@/components/Loading";
+import ProductCard from "@/components/ProductCard";
 import { useProductStore } from "../store/product";
 
 export default function SearchPage() {

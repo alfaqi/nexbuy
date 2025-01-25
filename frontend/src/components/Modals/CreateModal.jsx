@@ -6,8 +6,8 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useProductStore } from "../../store/product";
-import { toaster } from "../../components/ui/toaster";
+import { useProductStore } from "@/store/product";
+import { toaster } from "@/components/ui/toaster";
 import {
   DialogActionTrigger,
   DialogBody,

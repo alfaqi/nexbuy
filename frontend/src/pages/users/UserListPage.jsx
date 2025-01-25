@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useUserStore } from "../../store/users";
+import { useUserStore } from "@/store/users";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 

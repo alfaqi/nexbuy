@@ -7,7 +7,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import withAuth from "../hoc/withAuth";
 
- function Homepage() {
+function Homepage() {
   const { products, isLoading, error, fetchProducts } = useProductStore();
   useEffect(() => {
     fetchProducts();
