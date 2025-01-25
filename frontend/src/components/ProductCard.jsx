@@ -1,48 +1,18 @@
-import { useProductStore } from "../store/product";
 import {
   Box,
-  Button,
   Heading,
   HStack,
   IconButton,
   Image,
-  Input,
   Text,
-  VStack,
 } from "@chakra-ui/react";
-import {
-  DialogActionTrigger,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "../components/ui/dialog";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { toaster } from "./ui/toaster";
+import { MdEdit } from "react-icons/md";
 import { useState } from "react";
+import { DeleteModal } from "./Modals/DeleteModal";
+import { UpdateModal } from "./Modals/UpdateModal";
 
 export default function ProductCard({ product }) {
-  const { deleteProduct } = useProductStore();
   const [open, setOpen] = useState(false);
-
-  const handleDeleteProduct = async (id) => {
-    console.log("Product ID:", id);
-
-    const { success, message } = await deleteProduct(id);
-
-    const title = success === true ? "Success" : "Error";
-    const type = success === true ? "success" : "error";
-
-    toaster.create({
-      title: title,
-      description: message,
-      type: type,
-    });
-  };
 
   return (
     <Box
@@ -68,111 +38,16 @@ export default function ProductCard({ product }) {
         </Text>
         <HStack gap={2}>
           <IconButton
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen(true)}
             colorPalette={"blue"}
             _hover={{ rounded: "full" }}
           >
             <MdEdit />
           </IconButton>
-          <IconButton
-            colorPalette={"red"}
-            onClick={() => handleDeleteProduct(product._id)}
-            _hover={{ rounded: "full" }}
-          >
-            <MdDelete />
-          </IconButton>
+          <DeleteModal productID={product._id} />
         </HStack>
       </Box>
       <UpdateModal product={product} open={open} setOpen={setOpen} />
     </Box>
   );
 }
-
-const UpdateModal = ({ product, open, setOpen }) => {
-  const [update_product, setUpdate_product] = useState(product);
-  const [isLoading, setIsLoading] = useState(false);
-  const { updateProduct } = useProductStore();
-
-  const handleUpdateProduct = async (id) => {
-    try {
-      setIsLoading(true);
-      console.log(product);
-      const { success, message } = await updateProduct(id, update_product);
-      const title = success === true ? "Success" : "Error";
-      const type = success === true ? "success" : "error";
-
-      toaster.create({
-        title: title,
-        description: message,
-        type: type,
-      });
-      setOpen(false);
-    } catch (error) {
-      console.log("Error:", error);
-
-      toaster.create({
-        title: "Error",
-        description: error.message,
-        type: "error",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  return (
-    <DialogRoot open={open} onOpenChange={() => setOpen(false)}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Update Product</DialogTitle>
-        </DialogHeader>
-        <DialogBody>
-          <VStack gap={4}>
-            <Input
-              placeholder="Product Name"
-              name="name"
-              value={update_product.name}
-              onChange={(e) =>
-                setUpdate_product({ ...update_product, name: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Price"
-              name="price"
-              type="number"
-              value={update_product.price}
-              onChange={(e) =>
-                setUpdate_product({ ...update_product, price: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Image URL"
-              name="image"
-              value={update_product.image}
-              onChange={(e) =>
-                setUpdate_product({ ...update_product, image: e.target.value })
-              }
-            />
-          </VStack>
-        </DialogBody>
-        <DialogFooter>
-          <DialogActionTrigger asChild>
-            <Button
-              onClick={() => setOpen(false)}
-              variant="outline"
-              disabled={isLoading}
-            >
-              Cancel
-            </Button>
-          </DialogActionTrigger>
-          <Button
-            onClick={() => handleUpdateProduct(product._id)}
-            disabled={isLoading}
-          >
-            Update
-          </Button>
-        </DialogFooter>
-        <DialogCloseTrigger />
-      </DialogContent>
-    </DialogRoot>
-  );
-};
