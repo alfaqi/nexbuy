@@ -75,7 +75,6 @@ export const getProductName = async (req, res) => {
     const products = await Product.find({
       name: { $regex: query, $options: "i" }, // Case-insensitive search
     });
-    res.json(products);
     res.status(200).json({ success: true, data: products });
   } catch (error) {
     res.status(500).json({ message: "Error searching for products" });
