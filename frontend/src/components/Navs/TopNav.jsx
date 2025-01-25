@@ -2,6 +2,7 @@ import { Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import { BsMoon, BsPlusSquare, BsSun } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CreateModal from "../Modals/CreateModal";
+import SearchBar from "../SearchBar";
 
 export default function TopNav() {
   const colorMode = "";
@@ -34,6 +35,7 @@ export default function TopNav() {
               <BsPlusSquare size={20} />
             </Button>
           </Link> */}
+          <SearchBar />
           <CreateModal />
           <Button>{colorMode === "light" ? <BsMoon /> : <BsSun />}</Button>
         </HStack>
