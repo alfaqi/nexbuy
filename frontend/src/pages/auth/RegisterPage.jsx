@@ -4,14 +4,12 @@ import RegisterForm from "@/components/auth/RegisterForm";
 import { useAuth } from "@/hooks/useAuth";
 
 const RegisterPage = () => {
-  const { handleLogin } = useAuth();
+  const { handleRegister } = useAuth();
   const navigate = useNavigate();
 
   const handleRegistrationSuccess = async (email, password) => {
-    // Redirect or show a success message
     console.log("Registration successful!");
-    console.log(email, password);
-    await handleLogin(email, password);
+    await handleRegister(email, password);
     navigate("/dashboard");
   };
 
