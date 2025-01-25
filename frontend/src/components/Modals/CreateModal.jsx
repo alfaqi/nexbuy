@@ -18,7 +18,7 @@ import {
   DialogRoot,
   DialogTitle,
 } from "../ui/dialog";
-import { BsPlusSquare } from "react-icons/bs";
+import { IoAdd } from "react-icons/io5";
 export default function CreateModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { createProduct } = useProductStore();
@@ -60,7 +60,7 @@ export default function CreateModal() {
     <DialogRoot open={isOpen} onOpenChange={onClose}>
       <DialogTrigger asChild>
         <Button onClick={onOpen}>
-          <BsPlusSquare size={20} />
+          <IoAdd size={20} />
         </Button>
       </DialogTrigger>
       <DialogContent>
