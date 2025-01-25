@@ -7,7 +7,7 @@ export const login = async (email, password) => {
     body: JSON.stringify({ email, password }),
   });
   const res = await response.json();
-  return res;
+  return res?.data;
 };
 
 export const register = async (userData) => {
@@ -17,5 +17,5 @@ export const register = async (userData) => {
     body: JSON.stringify(userData),
   });
   const res = await response.json();
-  return res;
+  return res?.data;
 };
