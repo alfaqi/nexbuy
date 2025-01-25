@@ -9,7 +9,7 @@ import {
   DialogRoot,
   DialogTitle,
 } from "../ui/dialog";
-import { useProductStore } from "../../store/product";
+import { useProductStore } from "@/store/product";
 import { Button, Input, VStack } from "@chakra-ui/react";
 import { toaster } from "../ui/toaster";
 

@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product";
-import { toaster } from "../components/ui/toaster";
+import { toaster } from "@/components/ui/toaster";
 
 export default function CreatePage() {
   const { createProduct } = useProductStore();

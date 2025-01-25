@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { MdDelete } from "react-icons/md";
-import { useProductStore } from "../../store/product";
+import { useProductStore } from "@/store/product";
 import { toaster } from "../ui/toaster";
 
 export function DeleteModal({ productID }) {
