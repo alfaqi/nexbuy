@@ -6,13 +6,15 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "@/components/ui/menu";
-import { useAuth } from "@/hooks/useAuth"; // Assuming you have a useAuth hook
+import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { toaster } from "../ui/toaster";
 import { Avatar } from "../ui/avatar";
+import { useUserStore } from "@/store/users";
 
 const UserInfo = () => {
-  const { user, handleLogout } = useAuth(); // Get user data and logout function from useAuth
+  const { handleLogout } = useAuth();
+  const { user } = useUserStore();
 
   const handleLogoutClick = () => {
     handleLogout();
@@ -35,9 +37,9 @@ const UserInfo = () => {
 
       <MenuContent align="start" minWidth="200px">
         <Box px={4} py={2}>
-          <Text fontWeight="bold">{"user?.name"}</Text>
+          <Text fontWeight="bold">{user?.name || "user?.name"}</Text>
           <Text fontSize="sm" color="gray.600">
-            {"user?.email"}
+            {user?.email || "user?.email"}
           </Text>
         </Box>
         <MenuSeparator />
