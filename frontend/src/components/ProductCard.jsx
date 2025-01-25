@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { MdEdit } from "react-icons/md";
 import { useState } from "react";
-import { DeleteConfirmation } from "./DeleteConfirmation";
-import { UpdateModal } from "./UpdateModal";
+import { DeleteModal } from "./Modals/DeleteModal";
+import { UpdateModal } from "./Modals/UpdateModal";
 
 export default function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function ProductCard({ product }) {
           >
             <MdEdit />
           </IconButton>
-          <DeleteConfirmation productID={product._id} />
+          <DeleteModal productID={product._id} />
         </HStack>
       </Box>
       <UpdateModal product={product} open={open} setOpen={setOpen} />

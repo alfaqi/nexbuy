@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-} from "../components/ui/dialog";
-import { useProductStore } from "../store/product";
+} from "../ui/dialog";
+import { useProductStore } from "../../store/product";
 import { Button, Input, VStack } from "@chakra-ui/react";
-import { toaster } from "./ui/toaster";
+import { toaster } from "../ui/toaster";
 
 export const UpdateModal = ({ product, open, setOpen }) => {
   const [update_product, setUpdate_product] = useState(product);
