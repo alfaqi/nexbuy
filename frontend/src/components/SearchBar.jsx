@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Input, Button, HStack } from "@chakra-ui/react";
+import { useProductStore } from "../store/product";
 
 export default function SearchBar() {
+  const { searchProducts } = useProductStore();
   const [query, setQuery] = useState("");
 
-  const handleSearch = () => {
-    onSearch(query);
-    setQuery("");
+  const handleSearch = async () => {
+    await searchProducts(query);
+
+    // setQuery("");
   };
 
   return (
