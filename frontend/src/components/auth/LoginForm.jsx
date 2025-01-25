@@ -27,7 +27,7 @@ const LoginForm = () => {
           duration: 3000,
           isClosable: true,
         });
-        navigate("/dashboard");
+        navigate("/shop");
       } else {
         toaster.error({
           title: "Login Failed",
