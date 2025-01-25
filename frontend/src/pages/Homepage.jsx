@@ -1,3 +1,5 @@
+import Error from "../components/Error";
+import Loading from "../components/Loading";
 import ProductCard from "../components/ProductCard";
 import { useProductStore } from "../store/product";
 import { Container, SimpleGrid, Text, VStack } from "@chakra-ui/react";
@@ -5,11 +7,15 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Homepage() {
-  const { fetchProducts, products } = useProductStore();
+  const { products, isLoading, error, fetchProducts } = useProductStore();
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
   console.log("Products:", products);
+
+  if (isLoading) return <Loading />;
+  if (error) return <Error error={error} onRetry={fetchProducts} />;
+
   return (
     <Container maxw="container.xl" py={12}>
       <VStack gap={8}>
