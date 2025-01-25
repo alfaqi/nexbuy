@@ -58,14 +58,26 @@ export const deleteProduct = async (req, res) => {
       .status(404)
       .json({ success: false, message: "Invalid Product ID" });
   }
-  
+
   try {
-    console.log(id);
-    res.send(id);
-    // await Product.findByIdAndDelete(id);
+    await Product.findByIdAndDelete(id);
     res.status(201).json({ success: true, message: "Product deleted" });
   } catch (error) {
     console.log("Error in Delete Product: ", error);
     res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const getProductName = async (req, res) => {
+  const { query } = req.query; // Get the search query from the URL
+
+  try {
+    const products = await Product.find({
+      name: { $regex: query, $options: "i" }, // Case-insensitive search
+    });
+    res.json(products);
+    res.status(200).json({ success: true, data: products });
+  } catch (error) {
+    res.status(500).json({ message: "Error searching for products" });
   }
 };
