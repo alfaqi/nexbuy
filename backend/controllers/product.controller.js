@@ -68,7 +68,7 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-export const getProductName = async (req, res) => {
+export const getProductByName = async (req, res) => {
   const { query } = req.query; // Get the search query from the URL
 
   try {

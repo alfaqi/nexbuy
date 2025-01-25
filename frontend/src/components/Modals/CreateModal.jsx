@@ -27,6 +27,7 @@ export default function CreateModal() {
     name: "",
     price: "",
     image: "",
+    description: "",
   });
   const [isCreating, setIsCreating] = useState(false);
 
@@ -92,6 +93,17 @@ export default function CreateModal() {
               value={newProduct.image}
               onChange={(e) =>
                 setNewProduct({ ...newProduct, image: e.target.value })
+              }
+            />
+            <Input
+              placeholder="Description"
+              name="description"
+              value={newProduct.description}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  description: e.target.value,
+                })
               }
             />
           </VStack>

@@ -10,7 +10,7 @@ const RegisterPage = () => {
   const handleRegistrationSuccess = async (email, password) => {
     console.log("Registration successful!");
     await handleRegister(email, password);
-    navigate("/dashboard");
+    navigate("/shop");
   };
 
   return (

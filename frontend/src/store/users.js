@@ -9,6 +9,9 @@ export const useUserStore = create((set) => ({
   isLoading: false, // Added loading state
   error: null, // Added error state
 
+  user: null,
+  setUser: (user) => set({ user }),
+
   // Set users directly
   setUsers: (users) => set({ users }),
 
