@@ -3,6 +3,7 @@ import { BsMoon, BsPlusSquare, BsSun } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CreateModal from "../Modals/CreateModal";
 import SearchBar from "../SearchBar";
+import UserInfo from "./UserInfo";
 
 export default function TopNav() {
   const colorMode = "";
@@ -38,6 +39,7 @@ export default function TopNav() {
           <SearchBar />
           <CreateModal />
           <Button>{colorMode === "light" ? <BsMoon /> : <BsSun />}</Button>
+          <UserInfo />
         </HStack>
       </Flex>
     </Container>
