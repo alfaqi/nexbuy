@@ -17,11 +17,9 @@ const LoginForm = () => {
       e.preventDefault();
       setIsSubmitting(true);
       const hashedPassword = hashPassword(password);
-      console.log("email, hashedPassword:", email, password, hashedPassword);
 
-      const a = await handleLogin(email, hashedPassword);
-      console.log("A:", a);
-      if (a) {
+      const loginStatus = await handleLogin(email, hashedPassword);
+      if (loginStatus) {
         toaster.success({
           title: "Login Successful",
           description: "You have been logged in successfully.",

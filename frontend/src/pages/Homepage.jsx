@@ -60,4 +60,4 @@ function Homepage() {
   );
 }
 
-export default withAuth(Homepage); // Wrap with withAuth
+export default withAuth(Homepage);
