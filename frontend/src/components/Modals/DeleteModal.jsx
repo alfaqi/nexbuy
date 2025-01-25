@@ -8,9 +8,9 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "../ui/dialog";
 import { MdDelete } from "react-icons/md";
-import { useProductStore } from "../store/product";
+import { useProductStore } from "../../store/product";
 
 export function DeleteModal({ productID }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

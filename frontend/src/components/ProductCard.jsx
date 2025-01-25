@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { MdEdit } from "react-icons/md";
 import { useState } from "react";
-import { DeleteModal } from "./DeleteModal";
-import { UpdateModal } from "./UpdateModal";
+import { DeleteModal } from "./Modals/DeleteModal";
+import { UpdateModal } from "./Modals/UpdateModal";
 
 export default function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
