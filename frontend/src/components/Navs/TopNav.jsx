@@ -1,6 +1,7 @@
 import { Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import { BsMoon, BsPlusSquare, BsSun } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import CreateModal from "../Modals/CreateModal";
 
 export default function TopNav() {
   const colorMode = "";
@@ -28,11 +29,12 @@ export default function TopNav() {
           <Link to="/">Product Store </Link>
         </Text>
         <HStack gap={2} alignItems={"center"}>
-          <Link to="/create">
+          {/* <Link to="/create">
             <Button>
               <BsPlusSquare size={20} />
             </Button>
-          </Link>
+          </Link> */}
+          <CreateModal />
           <Button>{colorMode === "light" ? <BsMoon /> : <BsSun />}</Button>
         </HStack>
       </Flex>
