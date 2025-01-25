@@ -11,7 +11,7 @@ import { useUserStore } from "@/store/users";
 import { Fieldset, Stack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import { toaster } from "../ui/toaster";
-import CryptoJS from "crypto-js";
+import { hashPassword } from "@/utils/utils";
 
 const RegisterForm = ({ onSuccess }) => {
   const { createUser } = useUserStore();
@@ -29,11 +29,6 @@ const RegisterForm = ({ onSuccess }) => {
     setErrors({ ...errors, [name]: "" });
   };
 
-  const hashPassword = (password) => {
-    // Hash the password using SHA-256 (or any other secure hashing algorithm)
-    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-  };
-
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name) newErrors.name = "Name is required.";
@@ -44,37 +39,50 @@ const RegisterForm = ({ onSuccess }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
+    try {
+      e.preventDefault();
+      if (!validateForm()) return;
 
-    setIsSubmitting(true);
+      setIsSubmitting(true);
 
-    // Hash the password before sending it
-    const hashedPassword = hashPassword(formData.password);
-    const userData = { ...formData, password: hashedPassword };
+      // Hash the password before sending it
+      const hashedPassword = hashPassword(formData.password);
+      const userData = { ...formData, password: hashedPassword };
 
-    const result = await createUser(userData);
-    console.log("result:", result);
+      const result = await createUser(userData);
+      console.log("result:", result);
 
-    setIsSubmitting(false);
+      setIsSubmitting(false);
 
-    if (result.success) {
-      toaster.create({
-        title: "Registration Successful",
-        description: "You have been registered successfully.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-      onSuccess?.({ name: userData.name, email: userData.email }); // Call the onSuccess callback if provided
-    } else {
+      if (result.success) {
+        toaster.create({
+          title: "Registration Successful",
+          description: "You have been registered successfully.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        onSuccess?.({ name: userData.name, email: userData.email }); // Call the onSuccess callback if provided
+      } else {
+        toaster.create({
+          title: "Registration Failed",
+          description:
+            result.message || "An error occurred during registration.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
       toaster.create({
         title: "Registration Failed",
-        description: result.message || "An error occurred during registration.",
+        description: "An error occurred during registration.",
         status: "error",
         duration: 3000,
         isClosable: true,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
