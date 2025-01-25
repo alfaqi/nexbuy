@@ -5,8 +5,9 @@ import { useProductStore } from "../store/product";
 import { Container, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import withAuth from "../hoc/withAuth";
 
-export default function Homepage() {
+ function Homepage() {
   const { products, isLoading, error, fetchProducts } = useProductStore();
   useEffect(() => {
     fetchProducts();
@@ -58,3 +59,5 @@ export default function Homepage() {
     </Container>
   );
 }
+
+export default withAuth(Homepage); // Wrap with withAuth
