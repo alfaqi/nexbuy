@@ -3,7 +3,7 @@ import {
   createProduct,
   deleteProduct,
   getAllProducts,
-  getProductName,
+  getProductByName,
   updateProduct,
 } from "../controllers/product.controller.js";
 
@@ -13,6 +13,6 @@ router.get("/", getAllProducts);
 router.post("/", createProduct);
 router.put("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
-router.get("/search", getProductName);
+router.get("/search", getProductByName);
 
 export default router;
