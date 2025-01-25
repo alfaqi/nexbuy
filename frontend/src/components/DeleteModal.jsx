@@ -8,11 +8,11 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "../components/ui/dialog";
+} from "./ui/dialog";
 import { MdDelete } from "react-icons/md";
 import { useProductStore } from "../store/product";
 
-export function DeleteConfirmation({ productID }) {
+export function DeleteModal({ productID }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { deleteProduct } = useProductStore();
 
