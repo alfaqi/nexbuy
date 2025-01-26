@@ -1,4 +1,4 @@
-import { Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
+import { Button, Container, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CreateModal from "../Modals/CreateModal";
@@ -10,6 +10,7 @@ import { useUserStore } from "@/store/users";
 export default function TopNav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { user } = useUserStore();
+
   return (
     <Container maxW={"1140px"} px={4}>
       <Flex
@@ -27,7 +28,12 @@ export default function TopNav() {
           textTransform={"uppercase"}
           textAlign={"center"}
         >
-          <Link to="/">Product Store</Link>
+          <Link to="/">
+            <Image
+              src={colorMode === "light" ? `/logo-black.png` : `/logo-blue.png`}
+              w={200}
+            />
+          </Link>
         </Text>
         <HStack gap={2} alignItems={"center"}>
           <SearchBar />
