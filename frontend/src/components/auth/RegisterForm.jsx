@@ -129,12 +129,7 @@ const RegisterForm = ({ onSuccess }) => {
         />
       </Field>
 
-      <Button
-        type="submit"
-        colorPalette="blue"
-        w={"full"}
-        disabled={isSubmitting}
-      >
+      <Button type="submit" w={"full"} disabled={isSubmitting}>
         Register
       </Button>
     </VStack>

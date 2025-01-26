@@ -15,14 +15,7 @@ const RegisterPage = () => {
 
   return (
     <Flex minH="100vh" align="center" justify="center" p={4}>
-      <Box
-        bg="black"
-        p={8}
-        borderRadius="md"
-        boxShadow="md"
-        maxW="lg"
-        width="full"
-      >
+      <Box p={8} borderRadius="md" boxShadow="md" maxW="lg" width="full">
         <RegisterForm onSuccess={handleRegistrationSuccess} />
         <Text mt={4} textAlign="center" color="gray.600">
           Already have an account?{" "}
