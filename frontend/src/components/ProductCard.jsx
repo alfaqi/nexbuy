@@ -10,9 +10,12 @@ import { MdEdit } from "react-icons/md";
 import { useState } from "react";
 import { DeleteModal } from "./Modals/DeleteModal";
 import { UpdateModal } from "./Modals/UpdateModal";
+import { useUserStore } from "@/store/users";
+import LoginModal from "./Modals/LoginModal";
 
 export default function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
+  const { user } = useUserStore();
 
   return (
     <Box
@@ -37,14 +40,24 @@ export default function ProductCard({ product }) {
           ${product.price}
         </Text>
         <HStack gap={2}>
-          <IconButton
-            onClick={() => setOpen(true)}
-            colorPalette={"blue"}
-            _hover={{ rounded: "full" }}
-          >
-            <MdEdit />
-          </IconButton>
-          <DeleteModal productID={product._id} />
+          {user ? (
+            <>
+              <IconButton
+                onClick={() => {
+                  setOpen(true);
+                }}
+                colorPalette={"blue"}
+                _hover={{ rounded: "full" }}
+              >
+                <MdEdit />
+              </IconButton>
+              <DeleteModal productID={product._id} />
+            </>
+          ) : (
+            <>
+              <LoginModal />
+            </>
+          )}
         </HStack>
       </Box>
       <UpdateModal product={product} open={open} setOpen={setOpen} />

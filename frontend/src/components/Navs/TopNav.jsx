@@ -29,16 +29,14 @@ export default function TopNav() {
         >
           <Link to="/">Product Store</Link>
         </Text>
-        {user && (
-          <HStack gap={2} alignItems={"center"}>
-            <SearchBar />
-            <CreateModal />
-            <Button onClick={toggleColorMode} aria-label="Toggle Dark Mode">
-              {colorMode === "light" ? <BsMoon /> : <BsSun />}
-            </Button>
-            <UserInfo />
-          </HStack>
-        )}
+        <HStack gap={2} alignItems={"center"}>
+          <SearchBar />
+          <CreateModal />
+          <Button onClick={toggleColorMode} aria-label="Toggle Dark Mode">
+            {colorMode === "light" ? <BsMoon /> : <BsSun />}
+          </Button>
+          {user && <UserInfo />}
+        </HStack>
       </Flex>
     </Container>
   );
