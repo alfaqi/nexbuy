@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Input, Button, VStack } from "@chakra-ui/react";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { hashPassword } from "@/utils/utils";
 import { toaster } from "../ui/toaster";
+import { Field } from "../ui/field";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const LoginForm = () => {
   const { handleLogin } = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     try {
@@ -27,7 +29,11 @@ const LoginForm = () => {
           duration: 3000,
           isClosable: true,
         });
-        navigate("/shop");
+
+        // Navigate to /shop only if the current path is /login
+        if (location.pathname === "/login") {
+          navigate("/shop");
+        }
       } else {
         toaster.error({
           title: "Login Failed",
@@ -52,19 +58,23 @@ const LoginForm = () => {
   };
 
   return (
-    <VStack as="form" w={"md"} onSubmit={handleSubmit}>
-      <Input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button type="submit" disabled={isSubmitting}>
+    <VStack as="form" w={"md"} onSubmit={handleSubmit} gap={4}>
+      <Field label="Email">
+        <Input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Field>
+      <Field label="Password">
+        <Input
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Field>
+      <Button type="submit" disabled={isSubmitting} w={"full"}>
         Login
       </Button>
     </VStack>
