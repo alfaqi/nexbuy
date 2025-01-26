@@ -3,48 +3,51 @@ import { create } from "zustand";
 const HOST = import.meta.env.VITE_REACT_APP_BACKEND_BASEURL;
 console.log("HOST:", HOST);
 
-export const useProductStore = create((set) => ({
-  products: [],
+export const useUserStore = create((set) => ({
+  users: [],
   searchResults: [], // Renamed to avoid conflict
   isLoading: false, // Added loading state
   error: null, // Added error state
 
-  // Set products directly
-  setProducts: (products) => set({ products }),
+  user: null,
+  setUser: (user) => set({ user }),
+
+  // Set users directly
+  setUsers: (users) => set({ users }),
 
   // Set search results
   setSearchResults: (searchResults) => set({ searchResults }),
 
-  // Create a new product
-  createProduct: async (newProduct) => {
-    if (!newProduct.name || !newProduct.image || !newProduct.price) {
+  // Create a new user
+  createUser: async (newUser) => {
+    if (!newUser.name || !newUser.email || !newUser.password) {
       return { success: false, message: "Please fill in all fields." };
     }
 
     set({ isLoading: true, error: null });
 
     try {
-      const res = await fetch(`${HOST}/api/products`, {
+      const res = await fetch(`${HOST}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(newUser),
       });
       const data = await res.json();
 
       if (data.success) {
         set((state) => ({
-          products: [...state.products, data.data],
+          users: [...state.users, data.data],
           isLoading: false,
         }));
-        return { success: true, message: "Product created successfully." };
+        return { success: true, message: "User created successfully." };
       } else {
         set({
           isLoading: false,
-          error: data.message || "Error creating product.",
+          error: data.message || "Error creating user.",
         });
         return {
           success: false,
-          message: data.message || "Error creating product.",
+          message: data.message || "Error creating user.",
         };
       }
     } catch (error) {
@@ -53,20 +56,20 @@ export const useProductStore = create((set) => ({
     }
   },
 
-  // Fetch all products
-  fetchProducts: async () => {
+  // Fetch all users
+  fetchUsers: async () => {
     set({ isLoading: true, error: null });
 
     try {
-      const res = await fetch(`${HOST}/api/products`);
+      const res = await fetch(`${HOST}/api/users`);
       const data = await res.json();
 
       if (data.success) {
-        set({ products: data.data, isLoading: false });
+        set({ users: data.data, isLoading: false });
       } else {
         set({
           isLoading: false,
-          error: data.message || "Error fetching products.",
+          error: data.message || "Error fetching users.",
         });
       }
     } catch (error) {
@@ -74,30 +77,30 @@ export const useProductStore = create((set) => ({
     }
   },
 
-  // Delete a product
-  deleteProduct: async (id) => {
+  // Delete a user
+  deleteUser: async (id) => {
     set({ isLoading: true, error: null });
 
     try {
-      const res = await fetch(`${HOST}/api/products/${id}`, {
+      const res = await fetch(`${HOST}/api/users/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
 
       if (data.success) {
         set((state) => ({
-          products: state.products.filter((p) => p._id !== id),
+          users: state.users.filter((user) => user._id !== id),
           isLoading: false,
         }));
-        return { success: true, message: "Product deleted successfully." };
+        return { success: true, message: "User deleted successfully." };
       } else {
         set({
           isLoading: false,
-          error: data.message || "Error deleting product.",
+          error: data.message || "Error deleting user.",
         });
         return {
           success: false,
-          message: data.message || "Error deleting product.",
+          message: data.message || "Error deleting user.",
         };
       }
     } catch (error) {
@@ -106,32 +109,32 @@ export const useProductStore = create((set) => ({
     }
   },
 
-  // Update a product
-  updateProduct: async (id, product) => {
+  // Update a user
+  updateUser: async (id, user) => {
     set({ isLoading: true, error: null });
 
     try {
-      const res = await fetch(`${HOST}/api/products/${id}`, {
+      const res = await fetch(`${HOST}/api/users/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
+        body: JSON.stringify(user),
       });
       const data = await res.json();
 
       if (data.success) {
         set((state) => ({
-          products: state.products.map((p) => (p._id === id ? data.data : p)),
+          users: state.users.map((u) => (u._id === id ? data.data : u)),
           isLoading: false,
         }));
-        return { success: true, message: "Product updated successfully." };
+        return { success: true, message: "User updated successfully." };
       } else {
         set({
           isLoading: false,
-          error: data.message || "Error updating product.",
+          error: data.message || "Error updating user.",
         });
         return {
           success: false,
-          message: data.message || "Error updating product.",
+          message: data.message || "Error updating user.",
         };
       }
     } catch (error) {
@@ -140,12 +143,12 @@ export const useProductStore = create((set) => ({
     }
   },
 
-  // Search products
-  searchProducts: async (query) => {
+  // Search users
+  searchUsers: async (query) => {
     set({ isLoading: true, error: null });
 
     try {
-      const res = await fetch(`${HOST}/api/products/search?query=${query}`);
+      const res = await fetch(`${HOST}/api/users/search?query=${query}`);
       const data = await res.json();
 
       if (data.success) {
@@ -153,7 +156,7 @@ export const useProductStore = create((set) => ({
       } else {
         set({
           isLoading: false,
-          error: data.message || "Error searching products.",
+          error: data.message || "Error searching users.",
         });
       }
     } catch (error) {

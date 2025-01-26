@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product";
-import { toaster } from "../components/ui/toaster";
+import { toaster } from "@/components/ui/toaster";
 
 export default function CreatePage() {
   const { createProduct } = useProductStore();
@@ -16,6 +16,7 @@ export default function CreatePage() {
     name: "",
     price: "",
     image: "",
+    description: "",
   });
   const [isCreating, setIsCreating] = useState(false);
 
@@ -76,6 +77,17 @@ export default function CreatePage() {
               value={newProduct.image}
               onChange={(e) =>
                 setNewProduct({ ...newProduct, image: e.target.value })
+              }
+            />
+            <Input
+              placeholder="Description"
+              name="description"
+              value={newProduct.description}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  description: e.target.value,
+                })
               }
             />
             <Button

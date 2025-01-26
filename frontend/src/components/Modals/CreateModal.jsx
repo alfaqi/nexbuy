@@ -1,16 +1,13 @@
 import { useState } from "react";
 import {
-  Box,
   Button,
-  Container,
   DialogTrigger,
-  Heading,
   Input,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useProductStore } from "../../store/product";
-import { toaster } from "../../components/ui/toaster";
+import { useProductStore } from "@/store/product";
+import { toaster } from "@/components/ui/toaster";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -21,7 +18,7 @@ import {
   DialogRoot,
   DialogTitle,
 } from "../ui/dialog";
-import { BsPlusSquare } from "react-icons/bs";
+import { IoAdd } from "react-icons/io5";
 export default function CreateModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { createProduct } = useProductStore();
@@ -30,6 +27,7 @@ export default function CreateModal() {
     name: "",
     price: "",
     image: "",
+    description: "",
   });
   const [isCreating, setIsCreating] = useState(false);
 
@@ -63,7 +61,7 @@ export default function CreateModal() {
     <DialogRoot open={isOpen} onOpenChange={onClose}>
       <DialogTrigger asChild>
         <Button onClick={onOpen}>
-          <BsPlusSquare size={20} />
+          <IoAdd size={20} />
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -95,6 +93,17 @@ export default function CreateModal() {
               value={newProduct.image}
               onChange={(e) =>
                 setNewProduct({ ...newProduct, image: e.target.value })
+              }
+            />
+            <Input
+              placeholder="Description"
+              name="description"
+              value={newProduct.description}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  description: e.target.value,
+                })
               }
             />
           </VStack>
