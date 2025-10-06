@@ -20,7 +20,7 @@ const RegisterPage = () => {
         <Text mt={4} textAlign="center" color="gray.600">
           Already have an account?{" "}
           <Link as={RouterLink} to="/login" color="blue.500">
-            Login here
+            Login
           </Link>
         </Text>
       </Box>
