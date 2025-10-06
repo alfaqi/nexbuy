@@ -7,8 +7,8 @@ import { toaster } from "../ui/toaster";
 import { Field } from "../ui/field";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@email.com");
+  const [password, setPassword] = useState("test");
   const { handleLogin } = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
