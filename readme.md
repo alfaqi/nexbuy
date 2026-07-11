@@ -155,5 +155,3 @@ Refer to Vercel docs for project linking and environment setup.
 
 ## License
 MIT (or your chosen license)
-
-
